@@ -1,3 +1,13 @@
+###
+==UserScript==
+@name        Hacker News comment filter
+@namespace   https://github.com/slaypni
+@description Show HN comments that match queries
+@version     0.1.0
+@match       https://news.ycombinator.com/item?id=*
+==/UserScript==
+###
+
 MIN_QUERY_LEN = 3
 
 navStyle = """
@@ -39,8 +49,8 @@ loadScript = (url, callback) ->
   document.getElementsByTagName('head')[0].appendChild s
 
 loadJquery = (callback) ->
-  loadScript '//code.jquery.com/jquery-2.1.4.min.js', callback
-  
+  loadScript '//code.jquery.com/jquery-3.1.1.min.js', callback
+
 loadJquery ->
   $ ->
     $('body')
@@ -48,7 +58,7 @@ loadJquery ->
     .prepend nav
     $('#hn_comment_filter-query').focus().keyup ->
       filterComments()
-    
+
 filterComments = () ->
   queries = $('#hn_comment_filter-query').val().split(',')
   .map (q) ->
@@ -70,4 +80,3 @@ filterComments = () ->
       item.hide()
     else
       item.show()
-    
